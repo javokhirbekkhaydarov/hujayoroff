@@ -436,58 +436,6 @@ const translations = {
   },
 };
 
-function applyTranslations(lang) {
-  const elements = document.querySelectorAll("[data-key]");
-  elements.forEach((el) => {
-    const key = el.getAttribute("data-key");
-    if (translations[lang] && translations[lang][key]) {
-      if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
-        el.placeholder = translations[lang][key];
-      } else {
-        el.innerHTML = translations[lang][key];
-      }
-    }
-  });
-
-  const flagMap = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
-  const langName = { ru: "RU", en: "EN", uz: "UZ" };
-
-  // Update desktop language display
-  const currentFlag = document.getElementById("currentFlag");
-  const currentLangSpan = document.getElementById("currentLang");
-  if (currentFlag) currentFlag.textContent = flagMap[lang];
-  if (currentLangSpan) currentLangSpan.textContent = langName[lang];
-
-  // Update mobile language display
-  const mobileCurrentFlag = document.getElementById("mobileCurrentFlag");
-  const mobileCurrentLang = document.getElementById("mobileCurrentLang");
-  if (mobileCurrentFlag) mobileCurrentFlag.textContent = flagMap[lang];
-  if (mobileCurrentLang) mobileCurrentLang.textContent = langName[lang];
-
-  document.documentElement.lang =
-    lang === "ru" ? "ru" : lang === "uz" ? "uz" : "en";
-}
-
-function setLanguage(lang) {
-  if (lang === currentLang) return;
-
-  const sections = document.querySelectorAll(
-    ".hero, .section, .price-block, footer",
-  );
-  sections.forEach((section) => {
-    section.style.opacity = "0.5";
-    section.style.transition = "opacity 0.2s ease";
-  });
-
-  setTimeout(() => {
-    currentLang = lang;
-    applyTranslations(currentLang);
-    localStorage.setItem("preferredLanguage", currentLang);
-    sections.forEach((section) => {
-      section.style.opacity = "1";
-    });
-  }, 150);
-}
 let currentLang = "ru";
 let modalShown = false;
 let scrollTimeout;
@@ -497,9 +445,16 @@ const modalOverlay = document.getElementById("modalOverlay");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const closeLink = document.getElementById("closeLink");
 const telegramLink = document.getElementById("telegramLink");
-const scrollIndicator = document.querySelector(".scroll-indicator");
 
-// Function to apply translations
+// Create scroll indicator if it doesn't exist
+let scrollIndicator = document.querySelector(".scroll-indicator");
+if (!scrollIndicator) {
+  scrollIndicator = document.createElement("div");
+  scrollIndicator.className = "scroll-indicator";
+  document.body.appendChild(scrollIndicator);
+}
+
+// Single applyTranslations function
 function applyTranslations(lang) {
   const elements = document.querySelectorAll("[data-key]");
   elements.forEach((el) => {
@@ -518,6 +473,20 @@ function applyTranslations(lang) {
     scrollIndicator.textContent = translations[lang].scrollText;
   }
 
+  // Update flag displays
+  const flagMap = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
+  const langName = { ru: "RU", en: "EN", uz: "UZ" };
+
+  const currentFlag = document.getElementById("currentFlag");
+  const currentLangSpan = document.getElementById("currentLang");
+  if (currentFlag) currentFlag.textContent = flagMap[lang];
+  if (currentLangSpan) currentLangSpan.textContent = langName[lang];
+
+  const mobileCurrentFlag = document.getElementById("mobileCurrentFlag");
+  const mobileCurrentLang = document.getElementById("mobileCurrentLang");
+  if (mobileCurrentFlag) mobileCurrentFlag.textContent = flagMap[lang];
+  if (mobileCurrentLang) mobileCurrentLang.textContent = langName[lang];
+
   // Update active button state
   document.querySelectorAll(".lang-btn").forEach((btn) => {
     if (btn.getAttribute("data-lang") === lang) {
@@ -529,54 +498,71 @@ function applyTranslations(lang) {
 
   currentLang = lang;
   localStorage.setItem("preferredLanguage", lang);
+  document.documentElement.lang =
+    lang === "ru" ? "ru" : lang === "uz" ? "uz" : "en";
 }
 
-// Function to set language
+// Single setLanguage function
 function setLanguage(lang) {
   if (lang === currentLang) return;
-  applyTranslations(lang);
+
+  const sections = document.querySelectorAll(
+    ".hero, .section, .price-block, footer",
+  );
+  sections.forEach((section) => {
+    section.style.opacity = "0.5";
+    section.style.transition = "opacity 0.2s ease";
+  });
+
+  setTimeout(() => {
+    applyTranslations(lang);
+    sections.forEach((section) => {
+      section.style.opacity = "1";
+    });
+  }, 150);
 }
 
-// Function to show modal
+// Modal functions
 function showModal() {
-  if (!modalShown) {
+  if (!modalShown && modalOverlay) {
     modalOverlay.classList.add("active");
     modalShown = true;
-    // Save to localStorage that modal has been shown
     localStorage.setItem("modalShown", "true");
   }
 }
 
-// Function to close modal
 function closeModal() {
-  modalOverlay.classList.remove("active");
-}
-
-// Check scroll position to trigger modal
-function checkScroll() {
-  const scrollPosition = window.scrollY;
-  const windowHeight = window.innerHeight;
-  const documentHeight = document.documentElement.scrollHeight;
-
-  // Trigger modal when user scrolls 30% down the page
-  const triggerPoint = documentHeight * 0.3;
-
-  if (scrollPosition >= triggerPoint && !modalShown) {
-    showModal();
+  if (modalOverlay) {
+    modalOverlay.classList.remove("active");
   }
 }
 
-// Debounced scroll event for better performance
-function handleScroll() {
+// Scroll trigger for modal (renamed to avoid conflict)
+function checkScrollForModal() {
+  if (!modalShown && modalOverlay) {
+    const scrollPosition = window.scrollY;
+    const documentHeight = document.documentElement.scrollHeight;
+    const triggerPoint = documentHeight * 0.3;
+
+    if (scrollPosition >= triggerPoint) {
+      showModal();
+    }
+  }
+}
+
+// Debounced scroll handler for modal
+function handleModalScroll() {
   if (scrollTimeout) {
     clearTimeout(scrollTimeout);
   }
   scrollTimeout = setTimeout(() => {
-    checkScroll();
+    checkScrollForModal();
   }, 100);
 }
 
-// Event listeners for modal close
+// ========== EVENT LISTENERS ==========
+
+// Modal close events
 if (closeModalBtn) {
   closeModalBtn.addEventListener("click", closeModal);
 }
@@ -605,12 +591,9 @@ if (modalContainer) {
   });
 }
 
-// Telegram link click tracking (optional)
+// Telegram link click
 if (telegramLink) {
   telegramLink.addEventListener("click", () => {
-    // You can add analytics tracking here if needed
-    console.log("Telegram link clicked");
-    // Close modal after click
     setTimeout(() => {
       closeModal();
     }, 500);
@@ -625,51 +608,7 @@ document.querySelectorAll(".lang-btn").forEach((btn) => {
   });
 });
 
-// Check if modal has already been shown in this session
-const modalAlreadyShown = localStorage.getItem("modalShown");
-if (modalAlreadyShown === "true") {
-  modalShown = true;
-}
-
-// Add scroll event listener
-window.addEventListener("scroll", handleScroll);
-
-// Also check on initial load if user is already past trigger point
-setTimeout(() => {
-  checkScroll();
-}, 1000);
-
-// Add keyboard event to close modal with Escape key
-document.addEventListener("keydown", (e) => {
-  if (e.key === "Escape" && modalOverlay.classList.contains("active")) {
-    closeModal();
-  }
-});
-
-// Show scroll indicator animation
-if (scrollIndicator) {
-  setInterval(() => {
-    if (
-      !modalShown &&
-      window.scrollY < document.documentElement.scrollHeight * 0.2
-    ) {
-      scrollIndicator.style.opacity = "1";
-    } else {
-      scrollIndicator.style.opacity = "0.5";
-    }
-  }, 500);
-}
-
-// Desktop language options
-document.querySelectorAll(".lang-option").forEach((option) => {
-  option.addEventListener("click", (e) => {
-    e.stopPropagation();
-    const lang = option.getAttribute("data-lang");
-    setLanguage(lang);
-  });
-});
-
-// Mobile language options (inside burger menu)
+// Mobile language options
 document.querySelectorAll(".mobile-lang-option").forEach((option) => {
   option.addEventListener("click", (e) => {
     const lang = option.getAttribute("data-lang");
@@ -684,11 +623,10 @@ document.querySelectorAll(".mobile-lang-option").forEach((option) => {
   });
 });
 
-// Mobile language selector (outside burger menu)
+// Mobile language selector
 const mobileLangSelector = document.getElementById("mobileLangSelector");
 if (mobileLangSelector) {
   mobileLangSelector.addEventListener("click", () => {
-    // Toggle a simple dropdown or cycle languages
     const langs = ["ru", "en", "uz"];
     const currentIndex = langs.indexOf(currentLang);
     const nextLang = langs[(currentIndex + 1) % langs.length];
@@ -696,7 +634,7 @@ if (mobileLangSelector) {
   });
 }
 
-// Burger menu functionality with X shape toggle
+// Burger menu functionality
 const burgerBtn = document.getElementById("burgerBtn");
 const mobileOverlay = document.getElementById("mobileMenuOverlay");
 const closeMenuBtn = document.getElementById("closeMenuBtn");
@@ -708,11 +646,13 @@ if (burgerBtn && mobileOverlay) {
     document.body.classList.toggle("menu-open");
   });
 
-  closeMenuBtn.addEventListener("click", () => {
-    burgerBtn.classList.remove("active");
-    mobileOverlay.classList.remove("active");
-    document.body.classList.remove("menu-open");
-  });
+  if (closeMenuBtn) {
+    closeMenuBtn.addEventListener("click", () => {
+      burgerBtn.classList.remove("active");
+      mobileOverlay.classList.remove("active");
+      document.body.classList.remove("menu-open");
+    });
+  }
 
   mobileOverlay.addEventListener("click", (e) => {
     if (e.target === mobileOverlay) {
@@ -722,7 +662,6 @@ if (burgerBtn && mobileOverlay) {
     }
   });
 
-  // Close menu when clicking on mobile nav links
   const mobileLinks = mobileOverlay.querySelectorAll(".mobile-menu-links a");
   mobileLinks.forEach((link) => {
     link.addEventListener("click", () => {
@@ -731,14 +670,6 @@ if (burgerBtn && mobileOverlay) {
       document.body.classList.remove("menu-open");
     });
   });
-}
-
-// Load saved language preference
-const savedLang = localStorage.getItem("preferredLanguage");
-if (savedLang && translations[savedLang]) {
-  setLanguage(savedLang);
-} else {
-  applyTranslations("ru");
 }
 
 // Smooth scroll for anchor links
@@ -754,234 +685,210 @@ document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
   });
 });
 
-// Slider functionality with smooth scrolling and responsive behavior
+// ========== SLIDER FUNCTIONALITY ==========
 const slider = document.getElementById("slider");
 const prevBtn = document.getElementById("prevBtn");
 const nextBtn = document.getElementById("nextBtn");
 const dots = document.querySelectorAll(".dot");
 const slides = document.querySelectorAll(".t1148__item");
 
-let currentIndex = 0;
-let autoScrollInterval;
-let isDragging = false;
-let startX;
-let scrollLeft;
+if (slider && slides.length > 0) {
+  let currentIndex = 0;
+  let autoScrollInterval;
+  let isDragging = false;
+  let startX;
+  let scrollLeft;
 
-// Calculate visible slides based on screen width
-function getVisibleSlides() {
-  if (window.innerWidth <= 768) return 1;
-  if (window.innerWidth <= 1024) return 2;
-  return 3;
-}
-
-// Get slide width including gap
-function getSlideWidth() {
-  const sliderStyle = getComputedStyle(slider);
-  const gap = parseInt(sliderStyle.gap) || 20;
-  const containerWidth = slider.clientWidth;
-  const visibleSlides = getVisibleSlides();
-  return (containerWidth - gap * (visibleSlides - 1)) / visibleSlides;
-}
-
-// Scroll to specific slide
-function scrollToSlide(index) {
-  const slideWidth = getSlideWidth();
-  const gap = 20;
-  const visibleSlides = getVisibleSlides();
-
-  // Calculate scroll position based on visible slides
-  let scrollPosition;
-  if (visibleSlides === 3) {
-    scrollPosition = index * (slideWidth + gap);
-  } else if (visibleSlides === 2) {
-    scrollPosition = index * (slideWidth + gap);
-  } else {
-    scrollPosition = index * (slideWidth + gap);
+  function getVisibleSlides() {
+    if (window.innerWidth <= 768) return 1;
+    if (window.innerWidth <= 1024) return 2;
+    return 3;
   }
 
-  slider.scrollTo({
-    left: scrollPosition,
-    behavior: "smooth",
-  });
+  function getSlideWidth() {
+    const sliderStyle = getComputedStyle(slider);
+    const gap = parseInt(sliderStyle.gap) || 20;
+    const containerWidth = slider.clientWidth;
+    const visibleSlides = getVisibleSlides();
+    return (containerWidth - gap * (visibleSlides - 1)) / visibleSlides;
+  }
 
-  updateActiveDot(index);
-  currentIndex = index;
-}
+  function updateActiveDot(index) {
+    dots.forEach((dot, i) => {
+      if (i === index) {
+        dot.classList.add("active");
+      } else {
+        dot.classList.remove("active");
+      }
+    });
+  }
 
-// Update active dot based on scroll position
-function updateActiveDot(index) {
-  dots.forEach((dot, i) => {
-    if (i === index) {
-      dot.classList.add("active");
+  function scrollToSlide(index) {
+    const slideWidth = getSlideWidth();
+    const gap = 20;
+    const scrollPosition = index * (slideWidth + gap);
+    slider.scrollTo({
+      left: scrollPosition,
+      behavior: "smooth",
+    });
+    updateActiveDot(index);
+    currentIndex = index;
+  }
+
+  function getCurrentSlideIndex() {
+    const slideWidth = getSlideWidth();
+    const gap = 20;
+    const scrollPosition = slider.scrollLeft;
+    let index = Math.round(scrollPosition / (slideWidth + gap));
+    index = Math.max(0, Math.min(index, slides.length - 1));
+    return index;
+  }
+
+  function nextSlide() {
+    if (currentIndex < slides.length - 1) {
+      scrollToSlide(currentIndex + 1);
     } else {
-      dot.classList.remove("active");
+      scrollToSlide(0);
     }
-  });
-}
-
-// Get current slide index based on scroll position
-function getCurrentSlideIndex() {
-  const slideWidth = getSlideWidth();
-  const gap = 20;
-  const scrollPosition = slider.scrollLeft;
-  const visibleSlides = getVisibleSlides();
-  const slideTotalWidth = slideWidth + gap;
-
-  let index = Math.round(scrollPosition / slideTotalWidth);
-  index = Math.max(0, Math.min(index, slides.length - 1));
-  return index;
-}
-
-// Handle scroll event
-function handleScroll() {
-  const newIndex = getCurrentSlideIndex();
-  if (newIndex !== currentIndex) {
-    currentIndex = newIndex;
-    updateActiveDot(currentIndex);
   }
-}
 
-// Next slide
-function nextSlide() {
-  if (currentIndex < slides.length - 1) {
-    scrollToSlide(currentIndex + 1);
-  } else {
-    // Loop back to first slide
-    scrollToSlide(0);
-  }
-}
-
-// Previous slide
-function prevSlide() {
-  if (currentIndex > 0) {
-    scrollToSlide(currentIndex - 1);
-  } else {
-    // Loop to last slide
-    scrollToSlide(slides.length - 1);
-  }
-}
-
-// Auto-scroll functionality
-function startAutoScroll() {
-  if (autoScrollInterval) clearInterval(autoScrollInterval);
-  autoScrollInterval = setInterval(() => {
-    if (!isDragging && window.innerWidth <= 1024) {
-      nextSlide();
-    } else if (!isDragging) {
-      nextSlide();
+  function prevSlide() {
+    if (currentIndex > 0) {
+      scrollToSlide(currentIndex - 1);
+    } else {
+      scrollToSlide(slides.length - 1);
     }
-  }, 5000);
-}
-
-function stopAutoScroll() {
-  if (autoScrollInterval) {
-    clearInterval(autoScrollInterval);
-    autoScrollInterval = null;
   }
-}
 
-// Touch and drag handling for mobile
-slider.addEventListener("mousedown", (e) => {
-  isDragging = true;
-  startX = e.pageX - slider.offsetLeft;
-  scrollLeft = slider.scrollLeft;
-  stopAutoScroll();
-});
+  function startAutoScroll() {
+    if (autoScrollInterval) clearInterval(autoScrollInterval);
+    autoScrollInterval = setInterval(() => {
+      if (!isDragging) {
+        nextSlide();
+      }
+    }, 5000);
+  }
 
-slider.addEventListener("mouseleave", () => {
-  isDragging = false;
-  startAutoScroll();
-});
+  function stopAutoScroll() {
+    if (autoScrollInterval) {
+      clearInterval(autoScrollInterval);
+      autoScrollInterval = null;
+    }
+  }
 
-slider.addEventListener("mouseup", () => {
-  isDragging = false;
-  startAutoScroll();
-});
-
-slider.addEventListener("mousemove", (e) => {
-  if (!isDragging) return;
-  e.preventDefault();
-  const x = e.pageX - slider.offsetLeft;
-  const walk = (x - startX) * 2;
-  slider.scrollLeft = scrollLeft - walk;
-});
-
-// Touch events for mobile
-slider.addEventListener("touchstart", (e) => {
-  isDragging = true;
-  startX = e.touches[0].pageX - slider.offsetLeft;
-  scrollLeft = slider.scrollLeft;
-  stopAutoScroll();
-});
-
-slider.addEventListener("touchend", () => {
-  isDragging = false;
-  startAutoScroll();
-});
-
-slider.addEventListener("touchmove", (e) => {
-  if (!isDragging) return;
-  const x = e.touches[0].pageX - slider.offsetLeft;
-  const walk = (x - startX) * 2;
-  slider.scrollLeft = scrollLeft - walk;
-});
-
-// Button click events
-prevBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  prevSlide();
-  stopAutoScroll();
-  startAutoScroll();
-});
-
-nextBtn.addEventListener("click", (e) => {
-  e.stopPropagation();
-  nextSlide();
-  stopAutoScroll();
-  startAutoScroll();
-});
-
-// Dot navigation
-dots.forEach((dot, index) => {
-  dot.addEventListener("click", () => {
-    scrollToSlide(index);
-    stopAutoScroll();
-    startAutoScroll();
-  });
-});
-
-// Scroll event listener
-slider.addEventListener("scroll", handleScroll);
-
-// Resize handler - recalculate and adjust
-let resizeTimeout;
-window.addEventListener("resize", () => {
-  clearTimeout(resizeTimeout);
-  resizeTimeout = setTimeout(() => {
+  function handleSliderScroll() {
     const newIndex = getCurrentSlideIndex();
     if (newIndex !== currentIndex) {
       currentIndex = newIndex;
       updateActiveDot(currentIndex);
     }
-    // Adjust scroll position to maintain current slide visibility
-    scrollToSlide(currentIndex);
-  }, 150);
-});
+  }
 
-// Initialize slider
-function initSlider() {
+  // Slider event listeners
+  slider.addEventListener("scroll", handleSliderScroll);
+
+  slider.addEventListener("mousedown", (e) => {
+    isDragging = true;
+    startX = e.pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+    stopAutoScroll();
+  });
+
+  slider.addEventListener("mouseleave", () => {
+    isDragging = false;
+    startAutoScroll();
+  });
+
+  slider.addEventListener("mouseup", () => {
+    isDragging = false;
+    startAutoScroll();
+  });
+
+  slider.addEventListener("mousemove", (e) => {
+    if (!isDragging) return;
+    e.preventDefault();
+    const x = e.pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2;
+    slider.scrollLeft = scrollLeft - walk;
+  });
+
+  slider.addEventListener("touchstart", (e) => {
+    isDragging = true;
+    startX = e.touches[0].pageX - slider.offsetLeft;
+    scrollLeft = slider.scrollLeft;
+    stopAutoScroll();
+  });
+
+  slider.addEventListener("touchend", () => {
+    isDragging = false;
+    startAutoScroll();
+  });
+
+  slider.addEventListener("touchmove", (e) => {
+    if (!isDragging) return;
+    const x = e.touches[0].pageX - slider.offsetLeft;
+    const walk = (x - startX) * 2;
+    slider.scrollLeft = scrollLeft - walk;
+  });
+
+  if (prevBtn)
+    prevBtn.addEventListener("click", () => {
+      prevSlide();
+      stopAutoScroll();
+      startAutoScroll();
+    });
+  if (nextBtn)
+    nextBtn.addEventListener("click", () => {
+      nextSlide();
+      stopAutoScroll();
+      startAutoScroll();
+    });
+
+  dots.forEach((dot, index) => {
+    dot.addEventListener("click", () => {
+      scrollToSlide(index);
+      stopAutoScroll();
+      startAutoScroll();
+    });
+  });
+
+  let resizeTimeout;
+  window.addEventListener("resize", () => {
+    clearTimeout(resizeTimeout);
+    resizeTimeout = setTimeout(() => {
+      scrollToSlide(currentIndex);
+    }, 150);
+  });
+
+  // Initialize slider
   scrollToSlide(0);
   startAutoScroll();
+
+  // Fix for Safari momentum scrolling
+  slider.style.webkitOverflowScrolling = "touch";
 }
 
-// Start after page load
-if (document.readyState === "loading") {
-  document.addEventListener("DOMContentLoaded", initSlider);
-} else {
-  initSlider();
-}
+// ========== SCROLL EVENT FOR MODAL ==========
+// Add scroll event listener (using the dedicated modal scroll handler)
+window.addEventListener("scroll", handleModalScroll);
 
-// Scroll icon click handler - smooth scroll to content
+// Check on initial load
+setTimeout(() => {
+  checkScrollForModal();
+}, 1000);
+
+// Keyboard event to close modal with Escape key
+document.addEventListener("keydown", (e) => {
+  if (
+    e.key === "Escape" &&
+    modalOverlay &&
+    modalOverlay.classList.contains("active")
+  ) {
+    closeModal();
+  }
+});
+
+// Scroll icon click handler
 const scrollIcon = document.querySelector(".t1148__scroll-icon-wrapper");
 if (scrollIcon) {
   scrollIcon.addEventListener("click", () => {
@@ -995,12 +902,12 @@ if (scrollIcon) {
 // Lazy loading images
 const images = document.querySelectorAll(".t1148__img");
 const imageObserver = new IntersectionObserver(
-  (entries, observer) => {
+  (entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const img = entry.target;
         img.style.opacity = "1";
-        observer.unobserve(img);
+        imageObserver.unobserve(img);
       }
     });
   },
@@ -1013,8 +920,16 @@ images.forEach((img) => {
   imageObserver.observe(img);
 });
 
-// Fix for Safari momentum scrolling
-slider.style.webkitOverflowScrolling = "touch";
-//
-//
-//
+// Load saved language preference
+const savedLang = localStorage.getItem("preferredLanguage");
+if (savedLang && translations[savedLang]) {
+  applyTranslations(savedLang);
+} else {
+  applyTranslations("ru");
+}
+
+// Check if modal has already been shown
+const modalAlreadyShown = localStorage.getItem("modalShown");
+if (modalAlreadyShown === "true") {
+  modalShown = true;
+}
