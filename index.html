@@ -5,6 +5,10 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title>Otabek Hujayorov — Training Program</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/favicon/android-chrome-192x192.png">
+<link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="./assets/favicon/favicon-16x16.png">
+<link rel="manifest" href="./assets/favicon/site.webmanifest">
   <!-- Google Fonts + simple reset -->
   <link
     href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700;14..32,800&display=swap"
@@ -13,6 +17,24 @@
 </head>
 
 <body>
+
+  <!-- Fitness Loading Screen -->
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-container">
+      <div class="fitness-animator">
+        <div class="dumbbell">
+          <div class="dumbbell-bar"></div>
+          <div class="dumbbell-weight dumbbell-weight-left"></div>
+          <div class="dumbbell-weight dumbbell-weight-right"></div>
+        </div>
+      </div>
+      <h2 class="loading-text">HUJAYOR<span class="gold-text">OFF</span></h2>
+      <div class="loading-bar">
+        <div class="loading-progress"></div>
+      </div>
+      <p class="loading-subtext">Loading your transformation...</p>
+    </div>
+  </div>
 
   <nav class="navbar">
     <div class="container nav-container">
@@ -116,7 +138,7 @@
           <div
             style="background: linear-gradient(145deg, #1e1a0f, #0c0b08); border-radius: 42px; padding: 32px; text-align: center;">
             <div style="font-size: 5rem; margin-bottom: 20px;">
-              <img src="./assets/images/org.png" alt="user">
+              <img src="./assets/images/org.png" width="100%" alt="user">
             </div>
             <h3 style="font-size: 1.8rem;">Otabek Hujayorov</h3>
             <p style="color: #c1a55c;" data-key="expertTitle">Эксперт по трансформации тела</p>
@@ -323,7 +345,7 @@
                 <!-- Left Column -->
                 <div class="program-left">
                   <div class="program-badge" data-key="badge">⭐ ПРОГРАММА ТРЕНИРОВОК</div>
-                  <h2 class="program-title" data-key="title">Твоя трансформация <span>начинается здесь</span></h2>
+                  <h2 class="program-title" data-key="title">Твоя трансформация начинается здесь</h2>
                   <p class="program-description" data-key="description">
                     Авторская система тренировок, разработанная на основе современных западных исследований и принципов
                     спортивной физиологии. Без изнурительных тренировок, без жестких диет.
@@ -435,25 +457,25 @@
       <!-- Social Media Icons -->
       <div class="footer__social">
         <div class="footer__social-icon">
-          <a href="https://t.me/mysadzm" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
+          <a href="https://t.me/hujayoroff" target="_blank" rel="noopener noreferrer" aria-label="Telegram">
             <img src="https://static.tildacdn.com/tild3463-3933-4833-a566-363435336332/telegram_2.png" alt="Telegram"
               loading="lazy">
           </a>
         </div>
         <div class="footer__social-icon">
-          <a href="https://www.youtube.com/@mysadzm" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
+          <a href="https://www.youtube.com/@hujayoroff" target="_blank" rel="noopener noreferrer" aria-label="YouTube">
             <img src="https://static.tildacdn.com/tild6332-3438-4135-a533-303964366166/3a71386b-3067-4da4-b.png"
               alt="YouTube" loading="lazy">
           </a>
         </div>
         <div class="footer__social-icon">
-          <a href="https://www.tiktok.com/@mysadzm" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
+          <a href="" target="_blank" rel="noopener noreferrer" aria-label="TikTok">
             <img src="https://static.tildacdn.com/tild6366-3861-4839-b362-366136376232/559482b9-9ec0-46d6-b.png"
               alt="TikTok" loading="lazy">
           </a>
         </div>
         <div class="footer__social-icon">
-          <a href="https://www.instagram.com/mysadzm/profilecard/?igsh=MWNteGRjcGs1YXk1Mw==" target="_blank"
+          <a href="https://www.instagram.com/hujayoroff/" target="_blank"
             rel="noopener noreferrer" aria-label="Instagram">
             <img src="https://static.tildacdn.com/tild3530-3066-4865-b233-363536353234/ee66bfe1-1b38-4fcc-b.png"
               alt="Instagram" loading="lazy">
@@ -478,7 +500,7 @@
 
       <!-- Copyright -->
       <div class="footer__copyright">
-        © Musa Dzhaparov — Авторская программа трансформации. Все права защищены.
+        © Otabek Hujayorov — Авторская программа трансформации. Все права защищены.
       </div>
     </div>
   </footer>
@@ -495,9 +517,9 @@
 
       <h2 class="modal-title" data-key="modalTitle">🎯 Special Offer!</h2>
       <p class="modal-text" data-key="modalText">Subscribe to our Telegram channel to get access to exclusive materials,
-        free workouts, and personal consultations from Musa Dzhaparov.</p>
+        free workouts, and personal consultations from Otabek Hujayorov.</p>
 
-      <a href="https://t.me/mysadzm" target="_blank" class="telegram-btn" id="telegramLink">
+      <a href="https://t.me/hujayoroff" target="_blank" class="telegram-btn" id="telegramLink">
         <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
           <path
             d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm4.64 6.8c-.15 1.58-.8 5.42-1.13 7.19-.14.75-.42 1-.68 1.03-.58.05-1.02-.38-1.58-.75-.88-.58-1.38-.94-2.23-1.51-.99-.66-.35-1.02.22-1.61.15-.15 2.71-2.48 2.76-2.69.01-.03.01-.14-.06-.2-.07-.06-.18-.04-.26-.02-.11.02-1.85 1.18-5.22 3.45-.5.34-.94.51-1.35.5-.44-.01-1.29-.25-1.92-.46-.77-.26-1.39-.4-1.34-.85.03-.23.35-.48.97-.74 3.79-1.65 6.31-2.74 7.57-3.27 3.61-1.52 4.36-1.78 4.85-1.79.11 0 .35.03.51.16.13.11.17.25.18.37-.01.07.01.24-.02.38z"

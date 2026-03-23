@@ -17,11 +17,8 @@ const translations = {
       "Уделяя всего 3 часа в неделю — первые заметные результаты через 2−3 недели. Программа разработана на основе современных западных исследований и принципов спортивной физиологии.",
     heroBtn1: "Начать трансформацию",
     heroBtn2: "Смотреть программу",
-    feature1: "Без отказа от сладкого и мучного",
-    feature2: "С любым уровнем подготовки",
-    feature3: "Рельеф без диет и голодовок",
     badge: "⭐ ПРОГРАММА ТРЕНИРОВОК",
-    title: "Твоя трансформация <span>начинается здесь</span>",
+    title: "Твоя трансформация начинается здесь",
     description:
       "Авторская система тренировок, разработанная на основе современных западных исследований и принципов спортивной физиологии. Без изнурительных тренировок, без жестких диет.",
     feature1: "3 уровня сложности: от новичка до профи",
@@ -35,9 +32,7 @@ const translations = {
     stat2Number: "97%",
     stat2Title: "Избегают ошибок",
     stat2Desc: "Благодаря четкой системе и поддержке",
-    priceAmount: "4990 ₽",
     pricePeriod: "в месяц",
-    priceBtn: "Начать трансформацию →",
     expertTitle: "Эксперт по трансформации тела",
     expertQuote:
       "“Я собрал лучшие протоколы, чтобы ты получал максимум за минимум времени”",
@@ -138,10 +133,9 @@ const translations = {
       "© Musa Dzhaparov — Авторская программа трансформации. Все права защищены. Данный сайт не является публичной офертой.",
     modalTitle: "🎯 Специальное предложение!",
     modalText:
-      "Подпишитесь на наш Telegram-канал, чтобы получить доступ к эксклюзивным материалам, бесплатным тренировкам и персональным консультациям от Мусы Джапарова.",
+      "Подпишитесь на наш Telegram-канал, чтобы получить доступ к эксклюзивным материалам, бесплатным тренировкам и персональным консультациям от Otabek Hujayorov.",
     telegramBtn: "Перейти в Telegram",
     closeLink: "Закрыть окно",
-    scrollText: "↓ Прокрутите вниз для специального предложения ↓",
   },
   en: {
     navProgram: "Program",
@@ -162,9 +156,6 @@ const translations = {
     heroBtn2: "View Program",
     feature1: "No giving up sweets and pastries",
     feature2: "Any level of training",
-    feature3: "Sculpted body without diets and starvation",
-    badge: "⭐ TRAINING PROGRAM",
-    title: "Your transformation <span>starts here</span>",
     description:
       "Author's training system developed based on modern Western research and sports physiology principles. No exhausting workouts, no strict diets.",
     feature1: "3 difficulty levels: from beginner to pro",
@@ -178,12 +169,12 @@ const translations = {
     stat2Number: "97%",
     stat2Title: "Avoid mistakes",
     stat2Desc: "Thanks to a clear system and support",
-    priceAmount: "1,490 ₽",
+    priceAmount: "4,990 ₽",
     pricePeriod: "per month",
     priceBtn: "Start transformation →",
-    expertTitle: "Body Transformation Expert",
-    expertQuote:
-      "“I've gathered the best protocols so you get maximum results in minimum time”",
+    expertTitle: "Body transformation expert",
+    experPeriod: "per monthols so you get maximum results in minimum time”",
+    expertQuote: "“I've gathered the best protocols so you get maximum results in minimum time.”",
     block1Title: "Block 1.",
     block1TitleGold: "Build a body",
     block1TitleEnd: "that catches attention",
@@ -223,6 +214,8 @@ const translations = {
       "❌ Weight doesn't go away → ✅ Lose weight without strict diets, with flexible nutrition",
     problem6:
       "❌ Want without steroids → ✅ Build lean muscle mass without pharmacology",
+      badge: "⭐ TRAINING PROGRAM",
+    title: "Your transformation starts here",
     testimonialsTitle: "Progress of",
     testimonialsTitleGold: "community members",
     testimonialsSubtitle: "You've seen their results. Now it's your turn!",
@@ -283,10 +276,9 @@ const translations = {
       "© Musa Dzhaparov — Author's transformation program. All rights reserved. This site is not a public offer.",
     modalTitle: "🎯 Special Offer!",
     modalText:
-      "Subscribe to our Telegram channel to get access to exclusive materials, free workouts, and personal consultations from Musa Dzhaparov.",
+      "Subscribe to our Telegram channel to get access to exclusive materials, free workouts, and personal consultations from Otabek Hujayorov.",
     telegramBtn: "Go to Telegram",
     closeLink: "Close window",
-    scrollText: "↓ Scroll down for special offer ↓",
   },
   uz: {
     navProgram: "Dastur",
@@ -309,10 +301,7 @@ const translations = {
     feature2: "Har qanday tayyorgarlik darajasi bilan",
     feature3: "Parhez va ro'zasiz bo'rtma tana",
     badge: "⭐ MASHG'ULOT DASTURI",
-    title: "Sening o'zgarishing <span>shu yerda boshlanadi</span>",
-    description:
-      "Zamonaviy G'arb tadqiqotlari va sport fiziologiyasi tamoyillari asosida ishlab chiqilgan mualliflik mashg'ulot tizimi. Mashaqqatli mashqlarsiz, qattiq parhezsiz.",
-    feature1: "3 daraja: yangi boshlovchidan professionalgacha",
+    title: "Sening o'zgarishing shu yerda boshlanadi",
     feature2: "Natija uchun haftasiga atigi 3 soat",
     feature3: "Har bir mashq texnikasining video tahlili",
     feature4: "Maqsadingizga mos shaxsiy ovqatlanish rejalari",
@@ -327,10 +316,7 @@ const translations = {
     pricePeriod: "oyiga",
     priceBtn: "O'zgarishni boshlang →",
     expertTitle: "Tana transformatsiyasi bo'yicha ekspert",
-    expertQuote:
-      "“Men eng yaxshi protokollarni to'pladim, shunda siz minimal vaqtda maksimal natija olasiz”",
-    block1Title: "Blok 1.",
-    block1TitleGold: "Tanani qur,",
+    expertQuote:      "\"Men eng yaxshi protokollarni to'pladim, shunda siz undan eng qisqa vaqt ichida maksimal darajada foydalanishingiz mumkin.\"",
     block1TitleEnd: "e'tiborni tortadigan",
     block1Subtitle:
       "Haftasiga atigi 3 soat ajratib — mashaqqatli mashqlarsiz, parhezsiz va shirinliklardan voz kechmasdan.",
@@ -429,10 +415,9 @@ const translations = {
       "© Musa Dzhaparov — Mualliflik transformatsiya dasturi. Barcha huquqlar himoyalangan. Ushbu sayt ommaviy oferta emas.",
     modalTitle: "🎯 Maxsus taklif!",
     modalText:
-      "Telegram kanalimizga obuna bo'ling va Musa Dzhaparovdan eksklyuziv materiallar, bepul mashg'ulotlar va shaxsiy maslahatlar oling.",
+      "Telegram kanalimizga obuna bo'ling va Otabek Hujayorovdan eksklyuziv materiallar, bepul mashg'ulotlar va shaxsiy maslahatlar oling.",
     telegramBtn: "Telegramga o'tish",
     closeLink: "Oynani yopish",
-    scrollText: "↓ Maxsus taklif uchun pastga aylantiring ↓",
   },
 };
 
@@ -445,14 +430,6 @@ const modalOverlay = document.getElementById("modalOverlay");
 const closeModalBtn = document.getElementById("closeModalBtn");
 const closeLink = document.getElementById("closeLink");
 const telegramLink = document.getElementById("telegramLink");
-
-// Create scroll indicator if it doesn't exist
-let scrollIndicator = document.querySelector(".scroll-indicator");
-if (!scrollIndicator) {
-  scrollIndicator = document.createElement("div");
-  scrollIndicator.className = "scroll-indicator";
-  document.body.appendChild(scrollIndicator);
-}
 
 // Single applyTranslations function
 function applyTranslations(lang) {
@@ -467,11 +444,6 @@ function applyTranslations(lang) {
       }
     }
   });
-
-  // Update scroll indicator text
-  if (scrollIndicator && translations[lang].scrollText) {
-    scrollIndicator.textContent = translations[lang].scrollText;
-  }
 
   // Update flag displays
   const flagMap = { ru: "🇷🇺", en: "🇬🇧", uz: "🇺🇿" };
@@ -488,7 +460,7 @@ function applyTranslations(lang) {
   if (mobileCurrentLang) mobileCurrentLang.textContent = langName[lang];
 
   // Update active button state
-  document.querySelectorAll(".lang-btn").forEach((btn) => {
+  document.querySelectorAll(".lang-option").forEach((btn) => {
     if (btn.getAttribute("data-lang") === lang) {
       btn.classList.add("active");
     } else {
@@ -527,7 +499,6 @@ function showModal() {
   if (!modalShown && modalOverlay) {
     modalOverlay.classList.add("active");
     modalShown = true;
-    localStorage.setItem("modalShown", "true");
   }
 }
 
@@ -537,15 +508,18 @@ function closeModal() {
   }
 }
 
-// Scroll trigger for modal (renamed to avoid conflict)
+// Scroll trigger for modal (show when user reaches footer)
 function checkScrollForModal() {
   if (!modalShown && modalOverlay) {
-    const scrollPosition = window.scrollY;
-    const documentHeight = document.documentElement.scrollHeight;
-    const triggerPoint = documentHeight * 0.3;
-
-    if (scrollPosition >= triggerPoint) {
-      showModal();
+    const footer = document.querySelector("footer");
+    if (footer) {
+      const footerPosition = footer.getBoundingClientRect().top;
+      const windowHeight = window.innerHeight;
+      
+      // Show modal when footer comes into view (top of footer is within viewport)
+      if (footerPosition <= windowHeight && footerPosition >= 0) {
+        showModal();
+      }
     }
   }
 }
@@ -600,13 +574,29 @@ if (telegramLink) {
   });
 }
 
-// Language button event listeners
-document.querySelectorAll(".lang-btn").forEach((btn) => {
-  btn.addEventListener("click", () => {
-    const lang = btn.getAttribute("data-lang");
+// Language option event listeners
+document.querySelectorAll(".lang-option").forEach((option) => {
+  option.addEventListener("click", () => {
+    const lang = option.getAttribute("data-lang");
     setLanguage(lang);
   });
 });
+
+// Language dropdown toggle
+const langBtn = document.querySelector(".lang-btn");
+const dropdownContent = document.querySelector(".dropdown-content");
+if (langBtn && dropdownContent) {
+  langBtn.addEventListener("click", () => {
+    dropdownContent.classList.toggle("active");
+  });
+  
+  // Close dropdown when clicking outside
+  document.addEventListener("click", (e) => {
+    if (!e.target.closest(".lang-dropdown")) {
+      dropdownContent.classList.remove("active");
+    }
+  });
+}
 
 // Mobile language options
 document.querySelectorAll(".mobile-lang-option").forEach((option) => {
@@ -928,8 +918,59 @@ if (savedLang && translations[savedLang]) {
   applyTranslations("ru");
 }
 
-// Check if modal has already been shown
-const modalAlreadyShown = localStorage.getItem("modalShown");
-if (modalAlreadyShown === "true") {
-  modalShown = true;
-}
+// Modal resets on each session
+
+/* ============================================================
+   LOADING SCREEN FUNCTIONALITY
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', function() {
+  const loadingScreen = document.getElementById('loadingScreen');
+  
+  // Show loading screen on page load
+  if (loadingScreen) {
+    loadingScreen.classList.remove('hidden');
+    
+    // Hide loading screen after 2.5 seconds
+    setTimeout(() => {
+      loadingScreen.classList.add('hidden');
+    }, 2500);
+  }
+  
+  // Optional: Hide loading screen when all images are loaded
+  let images = document.querySelectorAll('img');
+  let loadedCount = 0;
+  
+  if (images.length === 0) {
+    // No images, just wait for the timeout
+    return;
+  }
+  
+  images.forEach(img => {
+    img.addEventListener('load', () => {
+      loadedCount++;
+      if (loadedCount === images.length && loadingScreen) {
+        setTimeout(() => {
+          loadingScreen.classList.add('hidden');
+        }, 500);
+      }
+    });
+    
+    // Handle broken images
+    img.addEventListener('error', () => {
+      loadedCount++;
+      if (loadedCount === images.length && loadingScreen) {
+        setTimeout(() => {
+          loadingScreen.classList.add('hidden');
+        }, 500);
+      }
+    });
+  });
+});
+
+// Show loading screen when navigating to a new page
+window.addEventListener('beforeunload', () => {
+  const loadingScreen = document.getElementById('loadingScreen');
+  if (loadingScreen) {
+    loadingScreen.classList.remove('hidden');
+  }
+});
